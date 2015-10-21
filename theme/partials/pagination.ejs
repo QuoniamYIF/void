@@ -1,0 +1,27 @@
+<%
+	var count = yiled $Topic.getTopicsCount($this.query.tab),
+		pages = Math.ceil(count /10),
+		page = +$this.query.p || 1,
+		tab = $this.query.tab || '',
+		items = [page-2, page-1, page, page+1, page+2],
+		prePage = '?tab=' + tab + '&p=' + (page-1),
+		nextPage = '?tab=' + tab + '&p=' + (page+1);
+%>
+
+<div class="ui pagination menu">
+	<% if(page&&page>1) { %>
+		<a href="?tab=<%= tab %>&p=<%= page - 1 %>" class="icon item">
+			<i class="left arrow icon"></i>
+		</a>
+	<% } %>
+
+	<% items.forEach(function (item) { %>
+		<% if (item && (item > 0) && (item <= pages) && (pages > 1)) { %>
+			<a href="?tab=<%= tab %>&p=<%= item %>"><%= item %></a>
+		<% } %>
+	<% }); %>
+
+	<% if(page && page < pages) { %>
+		<a href="?tab=<%= tab %>&p=<%= page + 1 %>" class="icon item"></a>
+	<% } %>
+</div>
